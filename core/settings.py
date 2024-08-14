@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'corsheaders',
     # * My App's
     'users',
+    'professor',
+    'turma',
 ]
 
 PASSWORD_HASHERS = [
