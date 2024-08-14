@@ -7,7 +7,8 @@ class Professor(BaseModel):
     user = models.OneToOneField(
         to=User,
         on_delete=models.CASCADE,
-        verbose_name='Usuário'
+        verbose_name='Usuário',
+        related_name='professor'
     )
     data_nascimento = models.DateField(
         verbose_name='Data de Nascimento',

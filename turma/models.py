@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
+from disciplina.models import Disciplina
 from professor.models import Professor
 from users.models import BaseModel
 
@@ -10,7 +12,8 @@ class Turma(BaseModel):
         to=Professor,
         on_delete=models.SET_NULL,
         help_text='Professor responável pela turma.',
-        null=True
+        null=True,
+        related_name='turmas'
     )
     nome = models.CharField(
         verbose_name='Nome',
@@ -30,7 +33,7 @@ class Turma(BaseModel):
 
     class Meta:
         verbose_name = 'Turma'
-        verbose_name_plural = 'Turmas',
+        verbose_name_plural = 'Turmas'
         ordering = ['ano', ]
 
 
@@ -68,6 +71,7 @@ class Aluno(BaseModel):
         verbose_name='Turma',
         to=Turma,
         on_delete=models.CASCADE,
+        related_name='alunos'
     )
 
     def __str__(self) -> str:
@@ -83,16 +87,19 @@ class Nota(BaseModel):
     aluno = models.ForeignKey(
         verbose_name='Aluno(a)',
         to=Aluno,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='notas'
     )
     turma = models.ForeignKey(
         verbose_name='Turma',
         to=Turma,
         on_delete=models.CASCADE,
+        related_name='notas'
     )
-    disciplina = models.CharField(
+    disciplina = models.ForeignKey(
         verbose_name='Disciplina',
-        max_length=50,
+        to=Disciplina,
+        on_delete=models.SET_NULL,
         blank=False,
         null=True
     )
@@ -106,6 +113,10 @@ class Nota(BaseModel):
 
     def __str__(self) -> str:
         return f'{self.aluno} - {self.disciplina}'
+
+    def clean(self) -> None:
+        if self.valor_nota < 0 or self.valor_nota > 10:
+            raise ValidationError('A nota deve estar entre 0 e 10.')
 
     class Meta:
         verbose_name = 'Nota'

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'professor',
     'turma',
+    'disciplina',
 ]
 
 PASSWORD_HASHERS = [
