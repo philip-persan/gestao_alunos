@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'professor',
     'turma',
     'disciplina',
+    'horarios',
 ]
 
 PASSWORD_HASHERS = [
