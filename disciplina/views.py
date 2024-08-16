@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from .models import Disciplina
+from .serializers import DisciplinaSerializer
+
+
+class DisciplinaViewSet(ModelViewSet):
+    queryset = Disciplina.objects.all()
+    serializer_class = DisciplinaSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]

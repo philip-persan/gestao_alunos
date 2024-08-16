@@ -1,3 +1,41 @@
-from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from .models import Aluno, Nota, Turma
+from .serializers import AlunoSerializer, NotaSerializer, TurmaSerializer
+
+
+class TurmaViewSet(ModelViewSet):
+    serializer_class = TurmaSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Turma.objects.filter(
+            professor__user=user
+        ).select_related('professor')
+        return queryset
+
+
+class AlunoViewSet(ModelViewSet):
+    serializer_class = AlunoSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Aluno.objects.filter(
+            turma__professor__user=user
+        ).select_related('turma')
+        return queryset
+
+
+class NotaViewSet(ModelViewSet):
+    serializer_class = NotaSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Nota.objects.filter(
+            turma__professor__user=user
+        ).select_related('aluno', 'turma')
+        return queryset
