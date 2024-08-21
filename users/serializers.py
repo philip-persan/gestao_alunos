@@ -25,8 +25,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        print(f"Updating User SR: {instance.id}")
+        print(f"Validated Data SR: {validated_data}")
         password = validated_data.pop('password', None)
         user = super().update(instance, validated_data)
+        instance.save()
         if password:
             user.set_password(password)
             user.save()

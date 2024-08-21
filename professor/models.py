@@ -12,7 +12,8 @@ class Professor(BaseModel):
     )
     data_nascimento = models.DateField(
         verbose_name='Data de Nascimento',
-        auto_created=False
+        auto_created=False,
+        null=True
     )
     formacao = models.CharField(
         verbose_name='Formação',

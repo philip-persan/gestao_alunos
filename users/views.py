@@ -16,6 +16,10 @@ class UserViewSet(ModelViewSet):
         user = self.request.user
         return User.objects.filter(id=user.id)
 
+    def get_object(self):
+        user = self.request.user
+        return User.objects.get(id=user.id)
+
 
 class UserAdminViewSet(ModelViewSet):
     """
