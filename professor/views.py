@@ -1,12 +1,14 @@
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Professor
 from .serializers import ProfessorSerializer
 
 
 class ProfessorViewSet(ModelViewSet):
+    authentication_classes = [JWTAuthentication]
     serializer_class = ProfessorSerializer
     permission_classes = [IsAuthenticated]
 
