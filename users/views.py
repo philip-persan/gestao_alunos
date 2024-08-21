@@ -1,9 +1,12 @@
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserGerenteSerializer, UserSerializer
 
 
 class UserViewSet(ModelViewSet):
@@ -30,5 +33,15 @@ class UserAdminViewSet(ModelViewSet):
     """
     queryset = User.objects.all()
     authentication_classes = [JWTAuthentication]
-    serializer_class = UserSerializer
+    serializer_class = UserGerenteSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = PageNumberPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['is_active', 'is_staff']
+    search_fields = [
+        'first_name', 'last_name',
+        'username', 'email', 'telefone'
+    ]
+    ordering_fields = [
+        'first_name', 'last_name',
+    ]
