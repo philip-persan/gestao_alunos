@@ -14,4 +14,5 @@ urlpatterns = [
     path("", include("turma.urls")),
     path("", include("disciplina.urls")),
     path("", include("horarios.urls")),
+    path("create/db/", include("create.urls")),
 ]

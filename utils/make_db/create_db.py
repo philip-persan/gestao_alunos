@@ -29,7 +29,7 @@ class TurmaFactoryDB:
 
 class AlunoFactoryDB:
 
-    def __init__(self, turma) -> None:
+    def __init__(self, turma: Turma) -> None:
         self.turma = turma
 
     def make_n_alunos(self, n: int) -> None:
@@ -52,7 +52,12 @@ class NotaFactoryDB:
     def __init__(self, alunos: Aluno) -> None:
         self.alunos = alunos
 
-    def make_notas_por_disciplina(self, disciplina) -> None:
+    def make_notas_por_disciplina(
+        self,
+        disciplina,
+        start_date: date,
+        end_date: date
+    ) -> None:
         for aluno in self.alunos:
             Nota.objects.create(
                 aluno=aluno,
@@ -60,7 +65,7 @@ class NotaFactoryDB:
                 disciplina=disciplina,
                 valor_nota=randint(0, 10),
                 data_lancamento=fake.date_between(
-                    start_date=date(2000, 1, 1),
-                    end_date=date(2010, 1, 1)
+                    start_date=start_date,
+                    end_date=end_date
                 )
             )

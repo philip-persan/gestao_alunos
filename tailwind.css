@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+label {
+  @apply block mb-1;
+}
+
+input,
+select {
+  @apply px-2 py-1 rounded;
+}
+
+main {
+  @apply h-screen w-screen;
+  @apply flex flex-col justify-center items-center gap-10;
+}
+
+.info_db {
+  @apply w-screen h-fit p-10;
+  @apply flex justify-center items-center gap-16;
+}
+
+.card {
+  @apply flex flex-col justify-evenly items-center;
+  @apply min-h-28 min-w-56 p-5;
+  @apply bg-slate-500 rounded shadow-lg text-white;
+  @apply font-semibold text-lg text-center;
+}
+
+.card > h1 {
+  @apply text-2xl;
+}
+
+.div_forms_creation {
+  @apply h-fit w-fit p-5;
+  @apply flex justify-center items-start gap-10;
+}
+
+.btn-p {
+  @apply px-2 py-1 rounded bg-gray-500 text-white self-center;
+}
+
+.div_creation {
+  @apply w-fit h-fit p-5 bg-blue-400 rounded shadow-lg;
+}
+
+.div_creation > h1 {
+  @apply font-semibold text-xl text-center;
+}
+
+.messages {
+  @apply flex flex-col justify-center items-center gap-4;
+}
+
+.messages > .success {
+  @apply absolute top-8 right-8;
+  @apply w-fit h-fit px-3 py-2 bg-green-400 rounded shadow-lg;
+}
